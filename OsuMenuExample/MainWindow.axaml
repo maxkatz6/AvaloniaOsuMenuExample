@@ -1,0 +1,70 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OsuMenuExample"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="OsuMenuExample.MainWindow"
+        Title="OsuMenuExample"
+        x:DataType="local:MainViewModel"
+        x:CompileBindings="True">
+  <Window.Styles>
+    <Style Selector="ListBox.osu-like">
+      <Setter Property="HorizontalAlignment" Value="Right" />
+      <Setter Property="Background" Value="Transparent" />
+    </Style>
+    <!-- Set ClipToBounds to false, so items won't be cropped -->
+    <Style Selector="ListBox.osu-like, ListBox.osu-like ScrollViewer, ListBox.osu-like ScrollContentPresenter">
+      <Setter Property="ClipToBounds" Value="False" />
+    </Style>
+    <Style Selector="ListBox.osu-like ListBoxItem">
+      <Setter Property="BorderThickness" Value="1" />
+      <Setter Property="BorderBrush" Value="#9F4600" />
+      <Setter Property="Transitions">
+        <!-- Transitions for the animated properties -->
+        <Transitions>
+          <TransformOperationsTransition Property="RenderTransform" Duration="0:0:.20" />
+          <ThicknessTransition Property="Margin" Duration="0:0:.20" />
+          <ThicknessTransition Property="Padding" Duration="0:0:.20" />
+        </Transitions>
+      </Setter>
+      <Setter Property="RenderTransform" Value="none" />
+      <Setter Property="Margin" Value="0" />
+      <Setter Property="Padding" Value="12, 10"></Setter>
+    </Style>
+    <Style Selector="ListBox.osu-like ListBoxItem:pointerover">
+      <Setter Property="RenderTransform" Value="translateX(-30px)" />
+    </Style>
+    <Style Selector="ListBox.osu-like ListBoxItem:selected">
+      <Setter Property="RenderTransform" Value="translateX(-30px)" />
+      <Setter Property="Margin" Value="0, 0, 0, 10"></Setter>
+      <Setter Property="Padding" Value="16"></Setter>
+    </Style>
+  </Window.Styles>
+
+  <Panel>
+    <ListBox Classes="osu-like"
+             Items="{Binding Maps}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <DockPanel>
+            <TextBlock DockPanel.Dock="Left"
+                       FontSize="38"
+                       Margin="12, 0, 8, 0"
+                       Text="{Binding Rank}" />
+            <TextBlock DockPanel.Dock="Top"
+                       FontWeight="500"
+                       Text="{Binding Title}" />
+            <TextBlock DockPanel.Dock="Top"
+                       FontWeight="300"
+                       FontSize="13"
+                       Text="{Binding Artist}" />
+            <TextBlock DockPanel.Dock="Top"
+                       FontWeight="500"
+                       Text="{Binding Difficulty}" />
+          </DockPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+  </Panel>
+</Window>
